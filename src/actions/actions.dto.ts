@@ -35,5 +35,5 @@ export class UpdateActionDto {
 export class DeleteActionDto {
   @IsOptional()
   @IsBoolean()
-  hard?: boolean;
+  hard?: boolean = false;
 }

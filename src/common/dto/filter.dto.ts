@@ -1,28 +1,40 @@
-import { z } from 'zod'
+import { Transform, Type } from 'class-transformer';
+import {
+  IsOptional,
+  IsEnum,
+  IsBoolean,
+  IsInt,
+  Min,
+  IsString,
+} from 'class-validator';
 
-const numericString = z
-  .string()
-  .optional()
-  .transform((val, ctx) => {
-    if (!val) return
-    const num = Number(val)
-    if (isNaN(num) || num < 1) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'Page number must be a positive integer'
-      })
-      return z.NEVER
-    }
+export class QueryFilterDto {
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt({ message: 'Page number must be a positive integer' })
+  @Min(1, { message: 'Page number must be a positive integer' })
+  pageNum?: number;
 
-    return num
+  @IsOptional()
+  @Type(() => Number)
+  @IsInt({ message: 'Page size must be a positive integer' })
+  @Min(1, { message: 'Page size must be a positive integer' })
+  pageSize?: number;
+
+  @IsOptional()
+  @IsEnum(['asc', 'desc'], { message: 'Order must be either asc or desc' })
+  order?: 'asc' | 'desc';
+
+  @IsOptional()
+  @IsString()
+  keyword?: string;
+
+  @IsOptional()
+  @Transform(({ value }) => {
+    if (value === 'true') return true;
+    if (value === 'false') return false;
+    return value;
   })
-
-export const queryFilterDto = z
-  .object({
-    pageNum: numericString,
-    pageSize: numericString,
-    order: z.enum(['asc', 'desc']).optional(),
-    keyword: z.string().optional(),
-    activeOnly: z.coerce.boolean().optional() // convert string "true/false" to boolean
-  })
-  .optional()
+  @IsBoolean()
+  isActive?: boolean = true;
+}
