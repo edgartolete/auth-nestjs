@@ -1,6 +1,6 @@
-import { SQL, sql } from 'drizzle-orm'
-import { AnyMySqlColumn } from 'drizzle-orm/mysql-core'
+import { SQL, sql } from 'drizzle-orm';
+import { AnyPgColumn } from 'drizzle-orm/pg-core';
 
-export function lower(email: AnyMySqlColumn): SQL {
-  return sql`(lower(${email}))`
+export function lower(email: AnyPgColumn): SQL {
+  return sql`(lower(${email}))`;
 }

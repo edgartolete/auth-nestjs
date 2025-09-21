@@ -1,23 +1,24 @@
-import { mysqlTable, varchar, date, int, bigint, index } from 'drizzle-orm/mysql-core'
-import { users } from './users.schema'
-import { relations } from 'drizzle-orm'
+import { pgTable, varchar, date, bigint, index } from 'drizzle-orm/pg-core';
+import { users } from './users.schema';
+import { relations } from 'drizzle-orm';
+import { bigserial } from 'drizzle-orm/pg-core';
 
-export const profiles = mysqlTable(
+export const profiles = pgTable(
   'profiles',
   {
-    id: int({ unsigned: true }).notNull().autoincrement().primaryKey(),
-    userId: bigint('userId', { mode: 'number', unsigned: true })
+    id: bigserial({ mode: 'number' }),
+    userId: bigint({ mode: 'number' })
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
     avatarUrl: varchar({ length: 255 }),
     avatarKey: varchar({ length: 255 }),
     firstName: varchar({ length: 255 }),
     lastName: varchar({ length: 255 }),
-    birthday: date()
+    birthday: date(),
   },
-  (t) => [index('idx_profile_user_id').on(t.userId)]
-)
+  (t) => [index('idx_profile_user_id').on(t.userId)],
+);
 
 export const profileRelations = relations(profiles, ({ one }) => ({
-  user: one(users, { fields: [profiles.userId], references: [users.id] })
-}))
+  user: one(users, { fields: [profiles.userId], references: [users.id] }),
+}));
