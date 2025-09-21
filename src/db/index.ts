@@ -1,4 +1,3 @@
-import dotenv from 'dotenv';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import * as userSchema from './schema/users.schema';
 import * as profileSchema from './schema/profiles.schema';
@@ -12,9 +11,10 @@ import * as resourceRoleSchema from './schema/resourceRoles.schema';
 import * as resourceRolePermissionschema from './schema/resourceRolePermissions.schema';
 import { Pool } from 'pg';
 
+import dotenv from 'dotenv';
 dotenv.config({ quiet: true });
 
-const poolConnection = new Pool({
+export const poolConnection = new Pool({
   host: process.env.POSTGRES_HOST,
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
