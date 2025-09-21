@@ -9,6 +9,7 @@ import { ActionsModule } from './actions/actions.module';
 import { GroupRolesModule } from './group-roles/group-roles.module';
 import { ResourceRolesModule } from './resource-roles/resource-roles.module';
 import { ResourceRolePermissionsModule } from './resource-role-permissions/resource-role-permissions.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { ResourceRolePermissionsModule } from './resource-role-permissions/resou
     GroupRolesModule,
     ResourceRolesModule,
     ResourceRolePermissionsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
