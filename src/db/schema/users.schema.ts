@@ -19,7 +19,7 @@ import { uniqueIndex } from 'drizzle-orm/pg-core';
 export const users = pgTable(
   'users',
   {
-    id: bigserial({ mode: 'number' }),
+    id: bigserial({ mode: 'number' }).primaryKey(),
     username: varchar({ length: 50 }).notNull().unique(),
     email: varchar({ length: 100 }).notNull().unique(),
     roleId: integer().references(() => roles.id, {

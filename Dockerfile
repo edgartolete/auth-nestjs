@@ -1,20 +1,23 @@
-FROM node:20.14.0-bookworm
+FROM node:20
 
-COPY . ./api
+RUN npm install -g pnpm
+
+RUN mkdir -p /api
+
+COPY package.json /api
+
+COPY /src/ /api/src
+
+COPY /drizzle/ /api/drizzle
+
+COPY .eslintrc.cjs /api/eslintrc.cjs
+
+COPY tsconfig.json /api/tsconfig.json
 
 WORKDIR /api
 
-# RUN npm install -g pnpm
-
-# COPY package.json pnpm-lock.yaml* ./
-
-RUN npm install
-
-# COPY .eslintrc.cjs ./
-
-# COPY tsconfig.json ./
+RUN pnpm install
 
 EXPOSE 3000
 
-CMD ["npm", "run", "start:dev"]
-
+CMD ["pnpm", "run", "start:dev"]

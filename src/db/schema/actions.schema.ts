@@ -12,7 +12,7 @@ import { resourceRolePermissions } from './resourceRolePermissions.schema';
 export const actions = pgTable(
   'actions',
   {
-    id: serial(),
+    id: serial().primaryKey(),
     code: varchar({ length: 10 }).notNull(),
     description: text(),
     isActive: boolean().notNull().default(true),

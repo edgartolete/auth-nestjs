@@ -13,7 +13,7 @@ import { bigserial } from 'drizzle-orm/pg-core';
 export const sessions = pgTable(
   'sessions',
   {
-    id: bigserial({ mode: 'number' }),
+    id: bigserial({ mode: 'number' }).primaryKey(),
     userId: bigserial({ mode: 'number' })
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),

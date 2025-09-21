@@ -15,10 +15,12 @@ import { relations } from 'drizzle-orm';
 export const groupRoles = pgTable(
   'groupRoles',
   {
-    id: serial(),
+    id: serial().primaryKey(),
     userId: bigint({ mode: 'number' })
       .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
+      .references(() => users.id, {
+        onDelete: 'cascade',
+      }),
     roleId: integer()
       .notNull()
       .references(() => roles.id, { onDelete: 'cascade' }),

@@ -6,10 +6,10 @@ import { bigserial } from 'drizzle-orm/pg-core';
 export const profiles = pgTable(
   'profiles',
   {
-    id: bigserial({ mode: 'number' }),
-    userId: bigint({ mode: 'number' })
-      .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
+    id: bigserial({ mode: 'number' }).primaryKey(),
+    userId: bigint({ mode: 'number' }).references(() => users.id, {
+      onDelete: 'cascade',
+    }),
     avatarUrl: varchar({ length: 255 }),
     avatarKey: varchar({ length: 255 }),
     firstName: varchar({ length: 255 }),

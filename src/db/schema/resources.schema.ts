@@ -6,6 +6,7 @@ import {
   text,
   uniqueIndex,
   varchar,
+  serial,
 } from 'drizzle-orm/pg-core';
 import { groups } from './groups.schema';
 import { relations } from 'drizzle-orm';
@@ -16,7 +17,7 @@ import { lower } from 'src/common/utils/schema.util';
 export const resources = pgTable(
   'resources',
   {
-    id: integer().notNull().generatedAlwaysAsIdentity().primaryKey(),
+    id: serial().primaryKey(),
     groupId: integer().references(() => groups.id, { onDelete: 'set null' }),
     name: varchar({ length: 50 }).notNull(),
     description: text(),

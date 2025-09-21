@@ -1,5 +1,5 @@
 {
-  "id": "f9d9ebf1-07b1-47b1-9ac9-3ce789483660",
+  "id": "0c330ab4-3fbf-4271-a958-821e40e7b15f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -11,7 +11,7 @@
         "id": {
           "name": "id",
           "type": "serial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "code": {
@@ -65,7 +65,7 @@
         "id": {
           "name": "id",
           "type": "serial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "userId": {
@@ -221,20 +221,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "serial",
           "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "groups_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "notNull": true
         },
         "name": {
           "name": "name",
@@ -287,14 +276,14 @@
         "id": {
           "name": "id",
           "type": "bigserial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "userId": {
           "name": "userId",
           "type": "bigint",
           "primaryKey": false,
-          "notNull": true
+          "notNull": false
         },
         "avatarUrl": {
           "name": "avatarUrl",
@@ -501,7 +490,7 @@
         "id": {
           "name": "id",
           "type": "serial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "userId": {
@@ -636,20 +625,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "serial",
           "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "resources_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "notNull": true
         },
         "groupId": {
           "name": "groupId",
@@ -742,20 +720,9 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "integer",
+          "type": "serial",
           "primaryKey": true,
-          "notNull": true,
-          "identity": {
-            "type": "always",
-            "name": "roles_id_seq",
-            "schema": "public",
-            "increment": "1",
-            "startWith": "1",
-            "minValue": "1",
-            "maxValue": "2147483647",
-            "cache": "1",
-            "cycle": false
-          }
+          "notNull": true
         },
         "code": {
           "name": "code",
@@ -823,7 +790,7 @@
         "id": {
           "name": "id",
           "type": "bigserial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "userId": {
@@ -924,7 +891,7 @@
         "id": {
           "name": "id",
           "type": "bigserial",
-          "primaryKey": false,
+          "primaryKey": true,
           "notNull": true
         },
         "username": {

@@ -1,10 +1,10 @@
 import {
   boolean,
-  integer,
   text,
   uniqueIndex,
   varchar,
   pgTable,
+  serial,
 } from 'drizzle-orm/pg-core';
 import { relations } from 'drizzle-orm';
 import { groupRoles } from './groupRoles.schema';
@@ -14,7 +14,7 @@ import { lower } from 'src/common/utils/schema.util';
 export const groups = pgTable(
   'groups',
   {
-    id: integer().notNull().generatedAlwaysAsIdentity().primaryKey(),
+    id: serial().primaryKey(),
     name: varchar({ length: 50 }).notNull(),
     description: text(),
     isActive: boolean().notNull().default(true),

@@ -15,7 +15,7 @@ import { resources } from './resources.schema';
 export const resourceRoles = pgTable(
   'resourceRoles',
   {
-    id: serial(),
+    id: serial().primaryKey(),
     userId: bigint({ mode: 'number' })
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),

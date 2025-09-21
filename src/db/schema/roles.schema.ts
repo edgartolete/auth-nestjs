@@ -1,5 +1,5 @@
 import { relations } from 'drizzle-orm';
-import { integer, varchar, uniqueIndex, boolean } from 'drizzle-orm/pg-core';
+import { serial, varchar, uniqueIndex, boolean } from 'drizzle-orm/pg-core';
 import { groupRoles } from './groupRoles.schema';
 import { resourceRoles } from './resourceRoles.schema';
 import { resourceRolePermissions } from './resourceRolePermissions.schema';
@@ -10,7 +10,7 @@ import { lower } from 'src/common/utils/schema.util';
 export const roles = pgTable(
   'roles',
   {
-    id: integer().notNull().generatedAlwaysAsIdentity().primaryKey(),
+    id: serial().primaryKey(),
     code: varchar({ length: 10 }).notNull(),
     name: varchar({ length: 50 }).notNull(),
     isActive: boolean().notNull().default(true),

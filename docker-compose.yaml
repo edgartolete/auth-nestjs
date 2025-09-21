@@ -1,6 +1,7 @@
 services:
   api:
     build: .
+    container_name: api
     volumes:
       - ./:/api
     env_file:
@@ -17,15 +18,15 @@ services:
   postgres:
     image: postgres:16-alpine3.22
     shm_size: 128mb
+    ports:
+      - "5432:5432"
     env_file:
       - .env
-    environment:
-      - POSTGRES_PASSWORD=Abc12345
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
     networks:
       - backend
-    restart: unless-stopped
 
   adminer:
     image: adminer:5.4.0-standalone
@@ -39,11 +40,11 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:alpine3.22
+    image: redis:latest
+    ports:
+      - "6379:6379"
     volumes:
       - redis_data:/data
-    networks:
-      - backend
     restart: unless-stopped
 
   redisinsight:
@@ -69,5 +70,4 @@ networks:
     driver: bridge
   backend:
     driver: bridge
-    internal: true
 

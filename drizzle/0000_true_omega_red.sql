@@ -1,12 +1,12 @@
 CREATE TABLE "actions" (
-	"id" serial NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"code" varchar(10) NOT NULL,
 	"description" text,
 	"isActive" boolean DEFAULT true NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "groupRoles" (
-	"id" serial NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"userId" bigint NOT NULL,
 	"roleId" integer NOT NULL,
 	"groupId" integer NOT NULL,
@@ -14,15 +14,15 @@ CREATE TABLE "groupRoles" (
 );
 --> statement-breakpoint
 CREATE TABLE "groups" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "groups_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"id" serial PRIMARY KEY NOT NULL,
 	"name" varchar(50) NOT NULL,
 	"description" text,
 	"isActive" boolean DEFAULT true NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "profiles" (
-	"id" bigserial NOT NULL,
-	"userId" bigint NOT NULL,
+	"id" bigserial PRIMARY KEY NOT NULL,
+	"userId" bigint,
 	"avatarUrl" varchar(255),
 	"avatarKey" varchar(255),
 	"firstName" varchar(255),
@@ -37,7 +37,7 @@ CREATE TABLE "resourceRolePermissions" (
 );
 --> statement-breakpoint
 CREATE TABLE "resourceRoles" (
-	"id" serial NOT NULL,
+	"id" serial PRIMARY KEY NOT NULL,
 	"userId" bigint NOT NULL,
 	"roleId" integer NOT NULL,
 	"resourceId" integer NOT NULL,
@@ -45,7 +45,7 @@ CREATE TABLE "resourceRoles" (
 );
 --> statement-breakpoint
 CREATE TABLE "resources" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "resources_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"id" serial PRIMARY KEY NOT NULL,
 	"groupId" integer,
 	"name" varchar(50) NOT NULL,
 	"description" text,
@@ -53,14 +53,14 @@ CREATE TABLE "resources" (
 );
 --> statement-breakpoint
 CREATE TABLE "roles" (
-	"id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "roles_id_seq" INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START WITH 1 CACHE 1),
+	"id" serial PRIMARY KEY NOT NULL,
 	"code" varchar(10) NOT NULL,
 	"name" varchar(50) NOT NULL,
 	"isActive" boolean DEFAULT true NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "sessions" (
-	"id" bigserial NOT NULL,
+	"id" bigserial PRIMARY KEY NOT NULL,
 	"userId" bigserial NOT NULL,
 	"refreshToken" varchar(255) NOT NULL,
 	"ipAddress" varchar(255) NOT NULL,
@@ -72,7 +72,7 @@ CREATE TABLE "sessions" (
 );
 --> statement-breakpoint
 CREATE TABLE "users" (
-	"id" bigserial NOT NULL,
+	"id" bigserial PRIMARY KEY NOT NULL,
 	"username" varchar(50) NOT NULL,
 	"email" varchar(100) NOT NULL,
 	"roleId" integer,
