@@ -5,10 +5,14 @@ import {
   NestFastifyApplication,
 } from '@nestjs/platform-fastify';
 
+import qs from 'qs';
+
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({
+      querystringParser: (str) => qs.parse(str),
+    }),
   );
   await app.listen(3000, '0.0.0.0');
 }
