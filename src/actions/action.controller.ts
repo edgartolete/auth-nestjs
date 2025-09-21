@@ -1,26 +1,16 @@
 import { Request, Response } from 'express';
 import { db } from '../db';
+import { and, eq, like, SQL } from 'drizzle-orm';
+import { actions } from '../db/schema/actions.schema';
 import {
-  extractAppId,
   getFilters,
   getPagination,
   paginateFilter,
-} from '../utils/request.util';
-import { and, eq, like, SQL } from 'drizzle-orm';
-import { actions } from '../db/schema/actions.schema';
+} from 'src/common/utils/request.util';
 
 export const actionController = {
   getAllActions: async (req: Request, res: Response) => {
     const { keyword, pageNum, pageSize, activeOnly } = getFilters(req);
-
-    const appId = await extractAppId(req);
-
-    if (!appId) {
-      return res.status(400).json({
-        success: false,
-        message: 'App ID is required to create action',
-      });
-    }
 
     const conditions: (SQL<unknown> | undefined)[] = [];
 
@@ -31,8 +21,6 @@ export const actionController = {
     if (activeOnly) {
       conditions.push(eq(actions.isActive, true));
     }
-
-    conditions.push(eq(actions.appId, appId));
 
     const result = await db.query.actions.findMany({
       where: and(...conditions),
@@ -164,11 +152,6 @@ export const actionController = {
     const isHardDelete = req.body?.hard;
 
     const whereClause = eq(actions.id, actionId);
-
-    const searchResult = await db.query.actions.findFirst({
-      columns: { id: true },
-      where: whereClause,
-    });
 
     if (!searchResult) {
       return res.status(404).json({
